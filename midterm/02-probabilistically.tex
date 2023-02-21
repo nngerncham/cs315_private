@@ -1,0 +1,19 @@
+\chapter{Probabilistically}
+
+\section{Probability that SS remains at home}
+
+Finding the probability of SS remaining at home after taking $2n$ steps is the same as finding the probability of heads showing up as many times as tails after $2n$ flips or vice-versa. This is because for SS to remain at the initial point after walking randomly, the distance traveled in each direction must be the same so they cancel out. Since the step size is the same for both directions, the number of steps taken in each direction must also be the same as well.
+
+Since SS is walking $2n$ steps each day, the number of steps he is taking each direction must be $n$. Thus, we can define the probability of him remaining at home after his random walks can simply be found using binomial distribution.
+
+\begin{equation}
+\begin{aligned}
+	Pr[\#H = n]
+		&=\binom{2n}{n}\left(\frac{1}{2}\right)^n\left(\frac{1}{2}\right)^n \\
+		&=\binom{2n}{n}\left(\frac{1}{2}\right)^{2n}\quad\text{for some $n > 0$}
+\end{aligned}
+\end{equation}
+
+\section{How many times (in expectation) does SS come home?}
+
+I will take the smooth brain way out for this problem and use Monte Carlo to help me find the expectation.
