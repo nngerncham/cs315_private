@@ -10,10 +10,23 @@ Since SS is walking $2n$ steps each day, the number of steps he is taking each d
 \begin{aligned}
 	Pr[\#H = n]
 		&=\binom{2n}{n}\left(\frac{1}{2}\right)^n\left(\frac{1}{2}\right)^n \\
-		&=\binom{2n}{n}\left(\frac{1}{2}\right)^{2n}\quad\text{for some $n > 0$}
+		&=\binom{2n}{n}\left(\frac{1}{2}\right)^{2n} \equiv \frac{(2n)!}{(n!)^2 \cdot 2^{2n}}
 \end{aligned}
 \end{equation}
 
-\section{How many times (in expectation) does SS come home?}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{graphics/02-endsathome.png}
+	\caption{Trend as $n$ increases}
+\end{figure}
 
-I will take the smooth brain way out for this problem and use Monte Carlo to help me find the expectation.
+\section{Expected number of times SS arrives home}
+
+While there is a closed form out there for calculating the expected number of times SS returns home in the $2n$ steps,
+we will use Monte Carlo simulation to give us some sample and try to fit a line to it.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{graphics/02-endsathome.png}
+	\caption{Average number of times SS passes his home}
+\end{figure}
