@@ -5,7 +5,7 @@ use crate::vinit::*;
 use core::arch::x86_64::_rdtsc;
 use rand::rngs::ThreadRng;
 
-const REPS: usize = 1;
+const REPS: usize = 10;
 const NS: [usize; 5] = [100, 10_000, 100_000, 1_000_000, 10_000_000];
 const FORS: [f64; 4] = [0.1, 0.25, 0.5, 0.75];
 
