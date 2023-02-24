@@ -14,10 +14,8 @@ pub struct Cat {
 
 impl Eq for Cat {}
 impl PartialEq for Cat {
-    fn eq(&self, other: &Cat) -> bool {
-        self.name == other.name
-            && self.age == other.age
-            && self.owner_phone_numbers == other.owner_phone_numbers
+    fn eq(&self, o: &Cat) -> bool {
+        self.name == o.name && self.weight == o.weight && self.age == o.age
     }
 }
 

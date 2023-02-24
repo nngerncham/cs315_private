@@ -12,7 +12,7 @@ use csv::Writer;
 fn main() {
     let res_path = get_project_root().unwrap().join("results.csv");
     let mut wtr = Writer::from_path(res_path).unwrap();
-    let _ = wtr.write_record(&["method", "data_type", "size", "fraction", "time"]);
+    let _ = wtr.write_record(&["method", "data_type", "size", "fraction", "time", "io_ratio"]);
     let _ = wtr.flush();
 
     let mut rng = thread_rng();
