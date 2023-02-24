@@ -1,0 +1,80 @@
+\chapter{LP Fun}
+
+\section{Solving LP with Scipy}
+
+First, we convert the maximization problem into a minimization one so that Scipy knows how to solve it.
+This is simply done by multiplying the objective function by $-1$.
+
+\begin{equation}
+    \begin{aligned}
+    &\min\quad
+        & -2x_1 - x_2 & \\
+    &s.t.\quad 
+        & -2x_1 -x_2    &\leq\ -1 \\
+        && x_1 - x_2     &\leq\ 3 \\
+        && 4x_1 + x_2    &\leq\ 17 \\
+        && x_2           &\leq\ 5 \\
+        && -x_1 + x_2    &\leq\ 4 \\
+        && x_1, x_2 &\geq 0
+    \end{aligned}
+\end{equation}
+
+Throwing this into Scipy and we obtain the following solution. Note that the objective value has been multiplied by $-1$ as well to convert it back to the optimal objective value of a maximization problem.
+
+\begin{equation}
+    \begin{aligned}
+		\mathbf x^* &= \{x_1, x_2\} = \{3, 5\} \\
+		z^* &= 11
+    \end{aligned}
+\end{equation}
+
+\section{Finding the Dual LP Problem}
+
+Since the given problem is already in symmetric form
+
+\begin{equation}
+    \begin{aligned}
+	& \max\quad& \mathbf{c^T x} & \\
+    & s.t.\quad & \mathbf{Ax} &\leq \mathbf b \\
+	&& \mathbf x &\geq 0
+    \end{aligned}
+\end{equation}
+
+The dual is simply
+
+\begin{equation}
+    \begin{aligned}
+	& \max\quad& \mathbf{b^T y} & \\
+    & s.t.\quad & \mathbf{A^T y} &\geq \mathbf c \\
+	&& \mathbf y &\geq 0
+    \end{aligned}
+\end{equation}
+
+Thus, the dual can be written out as
+
+\begin{equation}
+    \begin{aligned}
+    & \min\quad& -y_1 +3y_2 +17y_3 +5y_4 +4y_5 & \\
+    & s.t.\quad 
+        &-2y_1 +y_2 +4y_3 -y_5 &\geq 2 \\
+        &&-y_1 -y_2 +y_3 +y_4 +y_5 &\geq 1 \\
+        &&y_1, y_2, y_3, y_4, y_5 &\geq 0
+    \end{aligned}
+\end{equation}
+
+\section{Solving the Dual Problem}
+
+Throwing the dual problem (no conversion since already $\min$ problem), we obtain the following solution.
+
+\begin{equation}
+    \begin{aligned}
+		\mathbf y^* &= \{y_1, y_2, y_3, y_4, y_5\} = \{3, 5\} \\
+		G^* &= 11
+    \end{aligned}
+\end{equation}
+
+\section{$z^*$ vs. $G^*$}
+
+As can be seen above from the solutions of the primal and dual problem, their objective values are the same where $z^* = G^* = 11$.
+This is due to the fundamental principle of duality--Strong duality which states that if the optimal solution to the primal $\mathbf x^*$ exists, then the optimal solution to the dual $\mathbf y^*$ exists and vice-versa. In both cases, $z^* = \mathbf{c^T x^*} = \mathbf{b^T y^*} = G^*$.
+(I learned this from Optimization. Thank you Aj. Tipaluck!)

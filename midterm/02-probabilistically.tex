@@ -27,6 +27,28 @@ we will use Monte Carlo simulation to give us some sample and try to fit a line 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{graphics/02-endsathome.png}
+	\includegraphics[width=0.8\textwidth]{graphics/02-arriveshome.png}
 	\caption{Average number of times SS passes his home}
 \end{figure}
+
+\subsection*{Indulging my curiosity}
+
+Finally, because I still want an easy way to compute this (and just extremely curious), I also fitted a line to the results of the simulations.
+The function $L(n)$ of the line is the following where $n$ is, well, $n$ from the problem.
+
+\begin{equation}
+\begin{aligned}
+	L(n) &= r \cdot \log(n + h) + c \\
+	r &= 13.11223545502508 \\
+	h &= 231.39007884222403 \\
+	c &= -69.43227653593898
+\end{aligned}
+\end{equation}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{graphics/02-fittedline.png}
+	\caption{Fitted line against the results from the simulations}
+\end{figure}
+
+Although it doesn't perfectly fit the line, I think it is good enough for a quick experiment.
