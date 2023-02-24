@@ -1,8 +1,8 @@
+use crate::flt_util::{create_scaled_rd_flt, F64};
 use crate::vinit::compute_distinct_required;
 use rand::{rngs::ThreadRng, seq::SliceRandom, Rng};
 use random_string::generate;
 use std::cmp::Ordering;
-use crate::flt_util::{F64, create_scaled_rd_flt};
 
 #[derive(Hash, Clone)]
 pub struct Cat {
@@ -21,14 +21,23 @@ impl PartialEq for Cat {
 
 impl Ord for Cat {
     fn cmp(&self, o: &Cat) -> Ordering {
-        if self.age > o.age { return Ordering::Greater }
-        else if self.age < o.age { return Ordering::Less }
+        if self.age > o.age {
+            return Ordering::Greater;
+        } else if self.age < o.age {
+            return Ordering::Less;
+        }
 
-        if self.weight < o.weight { return Ordering::Less }
-        else if self.weight > o.weight { return Ordering::Greater }
+        if self.weight < o.weight {
+            return Ordering::Less;
+        } else if self.weight > o.weight {
+            return Ordering::Greater;
+        }
 
-        if self.name < o.name { return Ordering::Less }
-        else if self.name > o.name { return Ordering::Greater }
+        if self.name < o.name {
+            return Ordering::Less;
+        } else if self.name > o.name {
+            return Ordering::Greater;
+        }
 
         Ordering::Equal
     }
@@ -36,14 +45,23 @@ impl Ord for Cat {
 
 impl PartialOrd for Cat {
     fn partial_cmp(&self, o: &Cat) -> Option<Ordering> {
-        if self.age > o.age { return Some(Ordering::Greater) }
-        else if self.age < o.age { return Some(Ordering::Less) }
+        if self.age > o.age {
+            return Some(Ordering::Greater);
+        } else if self.age < o.age {
+            return Some(Ordering::Less);
+        }
 
-        if self.weight < o.weight { return Some(Ordering::Less) }
-        else if self.weight > o.weight { return Some(Ordering::Greater) }
+        if self.weight < o.weight {
+            return Some(Ordering::Less);
+        } else if self.weight > o.weight {
+            return Some(Ordering::Greater);
+        }
 
-        if self.name < o.name { return Some(Ordering::Less) }
-        else if self.name > o.name { return Some(Ordering::Greater) }
+        if self.name < o.name {
+            return Some(Ordering::Less);
+        } else if self.name > o.name {
+            return Some(Ordering::Greater);
+        }
 
         Some(Ordering::Equal)
     }

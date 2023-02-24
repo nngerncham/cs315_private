@@ -69,4 +69,42 @@ Finally, it creates a new vector from iterating over the sorted vector, taking $
 
 During the de-duplication of an input vector with length $n$, 1 new vector of length $n$ is created as a clone. Then, Rust's implementation of sorting could create a temporary slice of size at most $n/2 \in O(n)$. Finally, it creates the returning array. Therefore, the space requirement for this is $O(n)$ but the constant would be less than the hash-based implementation.
 
+\newpage
+
 \section{Results}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{graphics/03-int.png}
+	\caption{Number of cycles taken for de-duplication of a vector of integers}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{graphics/03-float.png}
+	\caption{Number of cycles taken for de-duplication of a vector of floats}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{graphics/03-string.png}
+	\caption{Number of cycles taken for de-duplication of a vector of strings}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{graphics/03-cat.png}
+	\caption{Number of cycles taken for de-duplication of a vector of mixed records}
+\end{figure}
+
+\section{Conclusion}
+
+It seems that, for simple, fixed-sized data types that are (somewhat) ordered, sorting is the way to go. This could be because the simpler comparisons take significantly less time than computing the hash. This could also be due to its relatively smaller size so more elements can fit in a single cache line which leads to faster access latency when sorting and accessing neighboring elements.
+
+In contrast, strings and mixed records are clearly faster with hashing. In this case, sorting could be slower because string comparison is proportional to its length and the mixed records' larger size could decrease cache hits, adding latency to access time during sorting while hashing is relatively constant time for all elements and adding to a set is similar as well.
+Its variable length could also be another factor but I have no real reasoning for this. My guess is that in order to sort variable-length data, there could be some \textit{buffer space} per element so any large element could fit anywhere when put in the resulting collection which, again, adds access latency.
+
+Interestingly, FoRs have a big impact with the hash-based implementation where the more duplicates there are, the slower it runs. Sorting-based implementation seems to be unaffected by FoRs except for strings but the number of cycles seems to be around the same in other cases.
+
+In conclusion, the better method depends on the use case. However, with databases usually being comprised of mostly mixed records, hashing may be the way to go assuming that that database is not indexed/already ordered in some way.

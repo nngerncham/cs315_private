@@ -1,8 +1,8 @@
+use crate::vinit::compute_distinct_required;
+use rand::{rngs::ThreadRng, seq::SliceRandom, Rng};
 use std::cmp::Ordering;
-use rand::{rngs::ThreadRng, Rng, seq::SliceRandom};
 use std::hash::{Hash, Hasher};
 use std::mem::transmute;
-use crate::vinit::compute_distinct_required;
 
 #[derive(Copy, Clone)]
 pub struct F64 {
@@ -10,11 +10,15 @@ pub struct F64 {
 }
 
 pub fn create_rd_flt(rng: &mut ThreadRng) -> F64 {
-    F64 { x: rng.gen::<f64>() * rng.gen::<u16>() as f64 }
+    F64 {
+        x: rng.gen::<f64>() * rng.gen::<u16>() as f64,
+    }
 }
 
 pub fn create_scaled_rd_flt(rng: &mut ThreadRng, scale: f64) -> F64 {
-    F64 { x: rng.gen::<f64>() * scale }
+    F64 {
+        x: rng.gen::<f64>() * scale,
+    }
 }
 
 impl Eq for F64 {}
@@ -57,9 +61,7 @@ impl Hash for F64 {
         let exp_mask: u64 = 0x7ff0000000000000;
         let sign_mask: u64 = 1 << 63;
 
-        let int_x: u64 = unsafe {
-            transmute::<f64, u64>(self.x)
-        };
+        let int_x: u64 = unsafe { transmute::<f64, u64>(self.x) };
 
         let x_mantissa = int_x & mts_mask;
         let x_exponent = int_x & exp_mask;
@@ -71,9 +73,7 @@ impl Hash for F64 {
 
 pub fn create_flt_vec(n: usize, f: f64, rng: &mut ThreadRng) -> Vec<F64> {
     let distinct_required = compute_distinct_required(n, f);
-    let distinct_vec: Vec<F64> = (0..distinct_required)
-        .map(|_| create_rd_flt(rng))
-        .collect();
+    let distinct_vec: Vec<F64> = (0..distinct_required).map(|_| create_rd_flt(rng)).collect();
     (0..n)
         .map(|_| distinct_vec.choose(rng).unwrap().to_owned())
         .collect()
