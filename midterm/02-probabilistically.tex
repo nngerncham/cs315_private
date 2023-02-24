@@ -14,22 +14,29 @@ Since SS is walking $2n$ steps each day, the number of steps he is taking each d
 \end{aligned}
 \end{equation}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.8\textwidth]{graphics/02-endsathome.png}
-	\caption{Trend as $n$ increases}
-\end{figure}
-
 \section{Expected number of times SS arrives home}
 
 While there is a closed form out there for calculating the expected number of times SS returns home in the $2n$ steps,
-we will use Monte Carlo simulation to give us some sample and try to fit a line to it.
+we will use Monte Carlo simulation to show us the trend \textit{because my brain is too smooth for math right now}.
+
+\subsection*{Simulation Setup}
+
+For $n = 1, 2, \ldots, 1000$, have Python create an array with length $2n$ by randomly picking an element from $\{-1, 1\}$.
+Then, compute the cumulative sum array of the original array.
+In the cumulative sum array, an occurrence of $0$ is an occurrence of SS passing his home. Thus, we count the number of $0$s in the array and that would be the number times he passes his home in $2n$ steps. Repeat this simulation 10,000 times per each $n$.
+
+\newpage
+
+\subsection*{Results of the simulation}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{graphics/02-arriveshome.png}
 	\caption{Average number of times SS passes his home}
 \end{figure}
+
+An interesting observation we can make is that the average number of time SS passes his home grows logarithmically in relation to $n$.
+This gives us some idea on how to fit this line.
 
 \subsection*{Indulging my curiosity}
 
@@ -38,16 +45,16 @@ The function $L(n)$ of the line is the following where $n$ is, well, $n$ from th
 
 \begin{equation}
 \begin{aligned}
-	L(n) &= r \cdot \log(n + h) + c \\
-	r &= 13.11223545502508 \\
-	h &= 231.39007884222403 \\
-	c &= -69.43227653593898
+	&& L(n) &= r \cdot \log(n + h) + c \\
+	&\text{where}\ & r &= 13.11223545502508 \\
+	&& h &= 231.39007884222403 \\
+	&& c &= -69.43227653593898
 \end{aligned}
 \end{equation}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{graphics/02-fittedline.png}
+	\includegraphics[width=0.8\textwidth]{graphics/02-fittedline.png}
 	\caption{Fitted line against the results from the simulations}
 \end{figure}
 
