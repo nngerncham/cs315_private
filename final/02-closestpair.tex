@@ -1,0 +1,11 @@
+\section{Closest Pair of Points in 2D}
+
+\subsection{Expected Number of Reboots}
+
+Assume that the points are randomly shuffled at the start but not after each reboot--if we go up to the $i$-th element and rebooted, the first $i$ elements we draw after the reboot will be the same. This means that if we had to reboot after observing the $k$-th element, we will never reboot at the $k$-th element again. Also assume that the closest pair is unique.
+
+Consider the probability of rebooting after observing the $i$-th point $p_i$. This is the same as the probability of $p_i$ being part of a closest pair with another point in the first $i$ points which is $2/i$ since we have looked at $i$ points and $p_i$ could be at either end of the closest pair. Since the $p_1$ and $p_2$ do not cause a reboot since they give the starting $r$,
+\[
+  \mathbf{E}[\text{Number of reboots}] = \sum_{i=3}^n \frac{2}{i} = 2H_n - 3
+\]
+where $H_n$ is the $n$-th harmonic number.
