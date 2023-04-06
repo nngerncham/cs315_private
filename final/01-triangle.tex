@@ -46,7 +46,6 @@ Consider
   \mathbf{E}[\hat{\tau}]
     &= \mathbf{E}\left[\frac{m(n-2)}{3}\cdot\hat{\alpha}\right] \\
     &= \frac{m(n-2)}{3}\cdot\mathbf{E}\left[\hat{\alpha}\right] \quad \text{($m$ and $n$ are not random)} \\
-    &= \frac{m(n-2)}{3}\cdot\mathbf{E}\left[\frac{1}{T}\left(\alpha_1 + \alpha_2 + \cdots + \alpha_T\right)\right] \\
     &= \frac{m(n-2)}{3}\cdot\frac{1}{T}\left(\mathbf{E}[\alpha_1] + \mathbf{E}[\alpha_2] + \cdots + \mathbf{E}[\alpha_T]\right) \\
     &= \frac{m(n-2)}{3}\cdot\frac{1}{T}\left(\sum_{i=1}^T \mathbf{E}[\alpha]\right) \\
     &= \frac{m(n-2)}{3}\cdot\frac{T}{T}\cdot \frac{3\tau}{m(n-2)} \\
@@ -55,5 +54,43 @@ Consider
 \end{aligned}
 \end{equation*}
 
-\subsection{Finding a $T$}
+\subsection{Finding a Good $T$}
+
+To find a good $T$ such that $\mathbf{Pr}[|\hat{\tau} - \tau| < \epsilon] \geq 1 - \delta$, recall that 
+\[
+  \hat{\tau}
+    = \frac{m(n-2)}{3}\cdot\frac{1}{T}(\alpha_1 + \alpha_2 + \cdots + \alpha_T)
+    \iff \frac{1}{T}\cdot\frac{m(n-2)}{3}(\alpha_1 + \alpha_2 + \cdots + \alpha_T)
+\]
+
+Plugging this into the probability, we have
+\[
+\begin{aligned}
+  \mathbf{Pr}[|\hat{\tau} - \tau| < \epsilon] \geq 1 - \delta
+    &\iff \mathbf{Pr}[|\hat{\tau} - \tau| \geq \epsilon] \leq \delta \\
+    &\iff \mathbf{Pr}\left[\left|\frac{1}{T}\sum_{i=1}^T\frac{m(n-2)}{3}\alpha_i - \tau\right| \geq \epsilon\right] \leq \delta \\
+    &\iff \mathbf{Pr}\left[\left|\frac{m(n-2)}{3T}\sum_{i=1}^T\alpha_i - \tau\right| \geq \epsilon\right] \leq \delta
+\end{aligned}
+\]
+
+Applying Chernoff-Hoeffding, we have
+\[
+\begin{aligned}
+  \mathbf{Pr}\left[\left|\frac{m(n-2)}{3T}\sum_{i=1}^T\alpha_i - \tau\right| \geq \epsilon\right] &\leq 2\exp\left(-\frac{6T\epsilon^2}{m(n-2)}\right)
+\end{aligned}  
+\]
+
+Suppose that $\delta$ is the maximum probability of having a bad $\hat{\tau}$, we solve for $\delta$ in the following equation.
+\[
+\begin{aligned}
+  \delta &= 2\exp\left(-\frac{6T\epsilon^2}{m(n-2)}\right) \\
+  \frac{2}{\delta} &= \exp\left(\frac{6T\epsilon^2}{m(n-2)}\right) \\
+  \ln\left(\frac{2}{\delta}\right) &= \frac{6T\epsilon^2}{m(n-2)} \\
+  \frac{m(n-2)}{6\epsilon^2}\ln\left(\frac{2}{\delta}\right) &= T
+\end{aligned}  
+\]
+
+Therefore, for $T$ to satisfy $\mathbf{Pr}[|\hat{\tau} - \tau| < \epsilon] \geq 1 - \delta$ for $\epsilon > 0$ and $0 < \delta \leq 1/2$,
+\[ T = \frac{m(n-2)}{6\epsilon^2}\ln\left(\frac{2}{\delta}\right) \]
+In the case that $\epsilon = 0$, well, might as well just count the the triangles in the graph since we can't be that certain.
 
