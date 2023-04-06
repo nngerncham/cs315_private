@@ -2,11 +2,41 @@
 
 \subsection{Expected Value of $\alpha$}
 
-First, let us find the probability of the algorithm picking an edge $e$ that is part of a triangle. Since we know that the number of triangles in $G$ is $\tau$ and that there are 3 edges per triangle, the number of edges that form a triangle must be $3\tau$. From that, we have
+Consider a triangle in $G$. WLOG, let $u$ and $v$ be the vertices picked by the algorithm as an edge $e = \{u, v\}$ and $w$ is picked from the remaining vertices. In reality, any two vertices of the three forming this triangle can be picked as an edge first. The probability that the algorithm picks this triangle is
+\begin{equation*}
+\begin{aligned}
+  & \text{$\#$ edges in triangle} \cdot
+    \text{$\mathbf{Pr}$[Picking $e = \{u, v\}$]} \cdot
+    \text{$\mathbf{Pr}$[Picking $w$ from $V\backslash\{u, v\}$]} \\
+  =\quad & 3 \cdot \frac{1}{m} \cdot \frac{1}{n-2} \\
+  =\quad & \frac{3}{m(n-2)}
+\end{aligned}
+\end{equation*}
 
-\[ \mathbf{Pr}\left[\text{Picking a triangle edge}\right] = \frac{3\tau}{m} \]
+Since there are $\tau$ triangles in $G$, we have that the probability of the algorithm picking any triangle is 
+\[
+  \mathbf{Pr}[\text{Algorithm picks a triangle}] = \frac{3}{m(n-2)} \cdot \tau
+\]
 
-\subsection{Increasing Sharpness of Expected Value}
+Recall the definition of $\alpha$
+\[
+  \alpha \begin{cases}
+    1 & \text{if the algorithm picks a triangle} \\
+    0 & \text{otherwise}
+  \end{cases}
+\]
+Therefore, 
+\begin{equation*}
+\begin{aligned}
+  \mathbf{E}[\alpha]
+    &= 1 \cdot \mathbf{Pr}[\text{Algorithm picks a triangle}] + 0 \cdot \mathbf{Pr}[\text{Algorithm doesn't pick a triangle}] \\
+    &= 1 \cdot \frac{3\tau}{m(n-2)} + 0 \cdot \left(1 - \frac{3\tau}{m(n-2)}\right) \\
+  \therefore \mathbf{E}[\alpha]
+    &= \frac{3\tau}{m(n-2)} \quad \qedsymbol
+\end{aligned}
+\end{equation*}
+
+\subsection{Expected Value of $\hat{\tau}$}
 
 Consider
 \begin{equation*}
@@ -19,8 +49,7 @@ Consider
     &= \frac{m(n-2)}{3}\cdot\mathbf{E}\left[\frac{1}{T}\left(\alpha_1 + \alpha_2 + \cdots + \alpha_T\right)\right] \\
     &= \frac{m(n-2)}{3}\cdot\frac{1}{T}\left(\mathbf{E}[\alpha_1] + \mathbf{E}[\alpha_2] + \cdots + \mathbf{E}[\alpha_T]\right) \\
     &= \frac{m(n-2)}{3}\cdot\frac{1}{T}\left(\sum_{i=1}^T \mathbf{E}[\alpha]\right) \\
-    &= \frac{m(n-2)}{3}\cdot\frac{1}{T}\cdot T\mathbf{E}[\alpha] \\
-    &= \frac{m(n-2)}{3}\cdot\frac{3\tau}{m(n-2)} \\
+    &= \frac{m(n-2)}{3}\cdot\frac{T}{T}\cdot \frac{3\tau}{m(n-2)} \\
   \therefore \mathbf{E}[\hat{\tau}]
     &= \tau \quad \qedsymbol
 \end{aligned}
