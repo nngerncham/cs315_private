@@ -1,0 +1,30 @@
+\section{Triangle Count Estimation}
+
+\subsection{Expected Value of $\alpha$}
+
+First, let us find the probability of the algorithm picking an edge $e$ that is part of a triangle. Since we know that the number of triangles in $G$ is $\tau$ and that there are 3 edges per triangle, the number of edges that form a triangle must be $3\tau$. From that, we have
+
+\[ \mathbf{Pr}\left[\text{Picking a triangle edge}\right] = \frac{3\tau}{m} \]
+
+\subsection{Increasing Sharpness of Expected Value}
+
+Consider
+\begin{equation*}
+\begin{aligned}
+  \hat{\tau}
+    &= \frac{m(n-2)}{3}\cdot\hat{\alpha} \\
+  \mathbf{E}[\hat{\tau}]
+    &= \mathbf{E}\left[\frac{m(n-2)}{3}\cdot\hat{\alpha}\right] \\
+    &= \frac{m(n-2)}{3}\cdot\mathbf{E}\left[\hat{\alpha}\right] \quad \text{($m$ and $n$ are not random)} \\
+    &= \frac{m(n-2)}{3}\cdot\mathbf{E}\left[\frac{1}{T}\left(\alpha_1 + \alpha_2 + \cdots + \alpha_T\right)\right] \\
+    &= \frac{m(n-2)}{3}\cdot\frac{1}{T}\left(\mathbf{E}[\alpha_1] + \mathbf{E}[\alpha_2] + \cdots + \mathbf{E}[\alpha_T]\right) \\
+    &= \frac{m(n-2)}{3}\cdot\frac{1}{T}\left(\sum_{i=1}^T \mathbf{E}[\alpha]\right) \\
+    &= \frac{m(n-2)}{3}\cdot\frac{1}{T}\cdot T\mathbf{E}[\alpha] \\
+    &= \frac{m(n-2)}{3}\cdot\frac{3\tau}{m(n-2)} \\
+  \therefore \mathbf{E}[\hat{\tau}]
+    &= \tau \quad \qedsymbol
+\end{aligned}
+\end{equation*}
+
+\subsection{Finding a $T$}
+
