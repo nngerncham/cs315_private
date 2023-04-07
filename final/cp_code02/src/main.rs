@@ -1,6 +1,6 @@
 mod dac;
-mod point;
 mod linear;
+mod point;
 
 fn main() {
     println!("Hello, world!");
