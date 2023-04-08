@@ -39,11 +39,33 @@ impl Grid {
             Some((rp, min_q)) => {
                 // updates r'
                 self.r = rp;
-                let existing_points = self.bins.values().flatten();
+
+                let (i, j) = self.boxify(p);
+                let bins_to_cmp = [
+                    (i - 1, j - 1),
+                    (i - 1, j),
+                    (i - 1, j + 1),
+                    (i, j - 1),
+                    (i, j),
+                    (i, j + 1),
+                    (i + 1, j - 1),
+                    (i + 1, j),
+                    (i + 1, j + 1),
+                ];
+
+                let existing_points: Vec<Point> = bins_to_cmp
+                    .into_iter()
+                    .map(|bin_key| self.bins.get(&bin_key))
+                    .filter(|e| e.is_some())
+                    .flat_map(|e| e.unwrap())
+                    .cloned()
+                    .collect();
+
+                // let existing_points = self.bins.values().flatten();
                 let mut new_bins: HashMap<Point, Vec<Point>> = HashMap::new();
 
                 // rehashes every existing point
-                existing_points.into_iter().for_each(|point| {
+                existing_points.iter().for_each(|point| {
                     new_bins
                         .entry(self.boxify(point))
                         .or_insert(vec![])

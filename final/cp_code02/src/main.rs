@@ -16,7 +16,7 @@ fn create_points(n: usize) -> Vec<Point> {
     let mut rng = rand::thread_rng();
     (0..n)
         .into_iter()
-        .map(|_| (rng.gen_range(0..1000), rng.gen_range(0..1000)))
+        .map(|_| (rng.gen_range(-1000..1000), rng.gen_range(-1000..1000)))
         .collect()
 }
 
