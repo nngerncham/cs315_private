@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+use rand::seq::SliceRandom;
+
 use crate::point::{dist, Distance, Point};
 
 pub struct Grid {
@@ -108,8 +110,13 @@ impl Grid {
 }
 
 pub fn lin_closest_pair(points: &[Point]) -> [Point; 2] {
-    let mut grid = Grid::new(&points[0], &points[1]);
-    points.iter().skip(2).for_each(|e| grid.insert(e));
+    use rand::thread_rng;
+    let mut rng = thread_rng();
+    let mut points_cp = points.to_vec();
+    points_cp.shuffle(&mut rng);
+
+    let mut grid = Grid::new(&points_cp[0], &points_cp[1]);
+    points_cp.iter().skip(2).for_each(|e| grid.insert(e));
 
     [grid.p1, grid.p2]
 }

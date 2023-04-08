@@ -1,6 +1,6 @@
 use crate::point::{dist, pt_default, Distance, Point};
 
-fn closest_pairs(points: &[Point]) -> [Point; 2] {
+pub fn closest_pairs(points: &[Point]) -> [Point; 2] {
     let mut sorted_points = points.to_vec();
     sorted_points.sort_by_key(|&(x, _)| x);
 
