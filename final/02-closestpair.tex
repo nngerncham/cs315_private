@@ -9,3 +9,7 @@ Consider the probability of rebooting after observing the $i$-th point $p_i$. Th
   \mathbf{E}[\text{Number of reboots}] = \sum_{i=3}^n \frac{2}{i} = 2H_n - 3
 \]
 where $H_n$ is the $n$-th harmonic number.
+
+\subsection{Real-World Performance}
+
+The implementations can be found \href{https://github.com/nngerncham/cs315_private/tree/main/final/cp_code02}{here}. It should become public after the due date for the exam. The idea for the implementation of linear-time closest pair is based on \href{https://www.cs.cmu.edu/~15451-s15/LectureNotes/lecture16/closest-pair.pdf}{this lecture note} on closest pairs from CMU. Both implementations also use the square distance of integer points in 2D defined by $dist(p_1 := (x_1, y_1), p_2 := (x_2, y_2)) = (x_1 - x_2)^2 + (y_1 - y_2)^2$.
